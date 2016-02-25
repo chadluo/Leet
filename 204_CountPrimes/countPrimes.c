@@ -1,0 +1,252 @@
+#include <stdlib.h>
+#include <assert.h>
+#include <stdio.h>
+
+int countPrimes(int n) {
+
+    if (n < 3) return 0;
+
+    const unsigned WIDTH = sizeof(unsigned), LENGTH = 1 + n/WIDTH;
+    unsigned counter = 0, i, j, sub, L, O, m;
+    int *t = calloc(LENGTH, sizeof(unsigned));
+
+    for (i = 2; i * i < n; i++) {
+        for (j = i; i * j < n; j++) {
+            sub = i * j;
+            L = sub/WIDTH;
+            O = sub%WIDTH;
+            if (!(t[L] & (0x01 << O)))
+                t[L] ^= (0x01 << O);
+        }
+    }
+
+    for (i = 0; i < LENGTH; i++) {
+        m = t[i];
+        for (; m != 0; m >>= 1)
+            if (m & 0x01)
+                counter++;
+    }
+
+    free(t);
+    return n - counter - 2;
+
+}
+
+int main(void) {
+   assert(countPrimes(0) == 0);
+   assert(countPrimes(1) == 0);
+   assert(countPrimes(2) == 0);
+   assert(countPrimes(3) == 1);
+   assert(countPrimes(6) == 3);
+   assert(countPrimes(10) == 4);
+   assert(countPrimes(14) == 6);
+   assert(countPrimes(20) == 8);
+   assert(countPrimes(30) == 10);
+   assert(countPrimes(35) == 11);
+   assert(countPrimes(40) == 12);
+   assert(countPrimes(60) == 17);
+   assert(countPrimes(99) == 25);
+   assert(countPrimes(100) == 25);
+   assert(countPrimes(200) == 46);
+   assert(countPrimes(300) == 62);
+   assert(countPrimes(390) == 77);
+   assert(countPrimes(505) == 96);
+   assert(countPrimes(521) == 97);
+   assert(countPrimes(562) == 102);
+   assert(countPrimes(587) == 106);
+   assert(countPrimes(600) == 109);
+   assert(countPrimes(628) == 114);
+   assert(countPrimes(685) == 124);
+   assert(countPrimes(707) == 126);
+   assert(countPrimes(709) == 126);
+   assert(countPrimes(741) == 131);
+   assert(countPrimes(747) == 132);
+   assert(countPrimes(748) == 132);
+   assert(countPrimes(779) == 137);
+   assert(countPrimes(981) == 165);
+   assert(countPrimes(1000) == 168);
+   assert(countPrimes(1056) == 177);
+   assert(countPrimes(1100) == 184);
+   assert(countPrimes(1106) == 185);
+   assert(countPrimes(1136) == 189);
+   assert(countPrimes(1138) == 189);
+   assert(countPrimes(1245) == 203);
+   assert(countPrimes(1469) == 232);
+   assert(countPrimes(1545) == 243);
+   assert(countPrimes(1619) == 255);
+   assert(countPrimes(1644) == 259);
+   assert(countPrimes(1677) == 263);
+   assert(countPrimes(1735) == 270);
+   assert(countPrimes(1782) == 275);
+   assert(countPrimes(1853) == 283);
+   assert(countPrimes(1973) == 297);
+   assert(countPrimes(2108) == 317);
+   assert(countPrimes(2118) == 319);
+   assert(countPrimes(2189) == 327);
+   assert(countPrimes(2320) == 344);
+   assert(countPrimes(2350) == 348);
+   assert(countPrimes(2381) == 352);
+   assert(countPrimes(2387) == 354);
+   assert(countPrimes(2475) == 366);
+   assert(countPrimes(2549) == 372);
+   assert(countPrimes(2561) == 375);
+   assert(countPrimes(2669) == 386);
+   assert(countPrimes(2676) == 387);
+   assert(countPrimes(2678) == 388);
+   assert(countPrimes(2717) == 396);
+   assert(countPrimes(2731) == 398);
+   assert(countPrimes(2762) == 402);
+   assert(countPrimes(2878) == 416);
+   assert(countPrimes(2934) == 423);
+   assert(countPrimes(2948) == 424);
+   assert(countPrimes(2970) == 428);
+   assert(countPrimes(2975) == 429);
+   assert(countPrimes(3054) == 437);
+   assert(countPrimes(3055) == 437);
+   assert(countPrimes(3059) == 437);
+   assert(countPrimes(3081) == 440);
+   assert(countPrimes(3086) == 441);
+   assert(countPrimes(3131) == 445);
+   assert(countPrimes(3131) == 445);
+   assert(countPrimes(3134) == 445);
+   assert(countPrimes(3179) == 449);
+   assert(countPrimes(3194) == 452);
+   assert(countPrimes(3206) == 453);
+   assert(countPrimes(3207) == 453);
+   assert(countPrimes(3314) == 466);
+   assert(countPrimes(3324) == 468);
+   assert(countPrimes(3324) == 468);
+   assert(countPrimes(3368) == 474);
+   assert(countPrimes(3427) == 480);
+   assert(countPrimes(3473) == 487);
+   assert(countPrimes(3526) == 491);
+   assert(countPrimes(3530) == 493);
+   assert(countPrimes(3550) == 497);
+   assert(countPrimes(3562) == 499);
+   assert(countPrimes(3567) == 499);
+   assert(countPrimes(3615) == 505);
+   assert(countPrimes(3633) == 508);
+   assert(countPrimes(3645) == 510);
+   assert(countPrimes(3742) == 522);
+   assert(countPrimes(3796) == 527);
+   assert(countPrimes(3821) == 529);
+   assert(countPrimes(3841) == 532);
+   assert(countPrimes(3856) == 535);
+   assert(countPrimes(3864) == 536);
+   assert(countPrimes(3915) == 541);
+   assert(countPrimes(3943) == 546);
+   assert(countPrimes(3974) == 549);
+   assert(countPrimes(3997) == 550);
+   assert(countPrimes(4005) == 552);
+   assert(countPrimes(4039) == 557);
+   assert(countPrimes(4104) == 565);
+   assert(countPrimes(4107) == 565);
+   assert(countPrimes(4138) == 569);
+   assert(countPrimes(4166) == 573);
+   assert(countPrimes(4205) == 575);
+   assert(countPrimes(4217) == 576);
+   assert(countPrimes(4237) == 580);
+   assert(countPrimes(4276) == 587);
+   assert(countPrimes(4286) == 588);
+   assert(countPrimes(4336) == 591);
+   assert(countPrimes(4342) == 593);
+   assert(countPrimes(4479) == 607);
+   assert(countPrimes(4517) == 612);
+   assert(countPrimes(4518) == 613);
+   assert(countPrimes(4644) == 627);
+   assert(countPrimes(4709) == 635);
+   assert(countPrimes(4860) == 650);
+   assert(countPrimes(4871) == 651);
+   assert(countPrimes(4946) == 661);
+   assert(countPrimes(5008) == 670);
+   assert(countPrimes(5051) == 675);
+   assert(countPrimes(5129) == 685);
+   assert(countPrimes(5192) == 691);
+   assert(countPrimes(5317) == 704);
+   assert(countPrimes(5403) == 712);
+   assert(countPrimes(5412) == 713);
+   assert(countPrimes(5463) == 721);
+   assert(countPrimes(5535) == 732);
+   assert(countPrimes(5556) == 732);
+   assert(countPrimes(5590) == 737);
+   assert(countPrimes(5605) == 738);
+   assert(countPrimes(5638) == 739);
+   assert(countPrimes(5673) == 747);
+   assert(countPrimes(5816) == 763);
+   assert(countPrimes(5833) == 765);
+   assert(countPrimes(5897) == 775);
+   assert(countPrimes(5941) == 780);
+   assert(countPrimes(5992) == 783);
+   assert(countPrimes(6003) == 783);
+   assert(countPrimes(6200) == 806);
+   assert(countPrimes(6254) == 812);
+   assert(countPrimes(6330) == 824);
+   assert(countPrimes(6401) == 834);
+   assert(countPrimes(6480) == 840);
+   assert(countPrimes(6526) == 843);
+   assert(countPrimes(6552) == 846);
+   assert(countPrimes(6564) == 848);
+   assert(countPrimes(6685) == 861);
+   assert(countPrimes(6871) == 884);
+   assert(countPrimes(6901) == 887);
+   assert(countPrimes(7007) == 901);
+   assert(countPrimes(7057) == 906);
+   assert(countPrimes(7137) == 914);
+   assert(countPrimes(7148) == 914);
+   assert(countPrimes(7149) == 914);
+   assert(countPrimes(7197) == 919);
+   assert(countPrimes(7228) == 923);
+   assert(countPrimes(7251) == 927);
+   assert(countPrimes(7332) == 934);
+   assert(countPrimes(7371) == 938);
+   assert(countPrimes(7400) == 939);
+   assert(countPrimes(7464) == 945);
+   assert(countPrimes(7590) == 964);
+   assert(countPrimes(7594) == 965);
+   assert(countPrimes(7595) == 965);
+   assert(countPrimes(7688) == 975);
+   assert(countPrimes(7763) == 985);
+   assert(countPrimes(7790) == 986);
+   assert(countPrimes(7856) == 992);
+   assert(countPrimes(7983) == 1006);
+   assert(countPrimes(8075) == 1014);
+   assert(countPrimes(8096) == 1018);
+   assert(countPrimes(8105) == 1019);
+   assert(countPrimes(8107) == 1019);
+   assert(countPrimes(8182) == 1027);
+   assert(countPrimes(8315) == 1043);
+   assert(countPrimes(8449) == 1057);
+   assert(countPrimes(8604) == 1071);
+   assert(countPrimes(8607) == 1071);
+   assert(countPrimes(8618) == 1072);
+   assert(countPrimes(8700) == 1084);
+   assert(countPrimes(8755) == 1092);
+   assert(countPrimes(8775) == 1093);
+   assert(countPrimes(8797) == 1095);
+   assert(countPrimes(8870) == 1106);
+   assert(countPrimes(8873) == 1106);
+   assert(countPrimes(8877) == 1106);
+   assert(countPrimes(8934) == 1111);
+   assert(countPrimes(8950) == 1112);
+   assert(countPrimes(9037) == 1122);
+   assert(countPrimes(9110) == 1130);
+   assert(countPrimes(9218) == 1142);
+   assert(countPrimes(9245) == 1146);
+   assert(countPrimes(9448) == 1170);
+   assert(countPrimes(9471) == 1173);
+   assert(countPrimes(9483) == 1175);
+   assert(countPrimes(9488) == 1175);
+   assert(countPrimes(9538) == 1180);
+   assert(countPrimes(9568) == 1183);
+   assert(countPrimes(9583) == 1183);
+   assert(countPrimes(9604) == 1185);
+   assert(countPrimes(9634) == 1190);
+   assert(countPrimes(9649) == 1191);
+   assert(countPrimes(9704) == 1197);
+   assert(countPrimes(9717) == 1197);
+   assert(countPrimes(9870) == 1217);
+   assert(countPrimes(9941) == 1225);
+   assert(countPrimes(100000) == 9592);
+   puts("all passed.");
+   return 0;
+}
